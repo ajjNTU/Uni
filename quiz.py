@@ -33,7 +33,7 @@ print("Question 2: What is Mario's brother called?")
 print("A: Wario")
 print("B: Luigi")
 print("C: Peach")
-print("D: Koopa")
+print("D: Koopa Troopa")
 attempt = 0
 while attempt < 2:
     answer1 = input("Input answer A/B/C/D: ")
