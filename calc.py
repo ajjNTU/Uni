@@ -77,7 +77,6 @@ def rebase(input_base, digits, output_base):
         for y in reversed(range(0, jtest)):
             outbasedigits.append(int(suminputbasedigits / output_base ** y))
             suminputbasedigits -= int(suminputbasedigits / output_base ** y) * output_base ** y
-
         return print("Input base entered:", input_base, "# Digits entered:", digits, "# Output base required:",
                      output_base, "# Result:", outbasedigits)
 

@@ -72,8 +72,6 @@ removeDuplicates(commonElements([1,2,3,4], [1,2,2,3]))
 # Each tuple contains an integer and either 'odd' or 'even',
 # Example:
 # myNumbers([3,6,1,12]) should return [(3,'odd'),(6,'even'),(1,'odd'),(12,'even')]
-# Write in python function descending (n, m) which returns a list of integers from integer n to m (both inclusive) in
-# descending order. Example: descending (2, 4) should return [4, 3, 2].
 def myNumbers(values):
     numbersoddeven = []
     for i in range(len(values)):
@@ -87,4 +85,19 @@ def myNumbers(values):
 myNumbers([3,6,1,12])
 myNumbers([3,6,1,12])
 myNumbers([-3,6,-1,12])
+
+
+# Write in python function descending (n, m) which returns a list of integers from integer n to m (both inclusive) in
+# descending order. Example: descending (2, 4) should return [4, 3, 2].
+def descending(num1,num2):
+    list = []
+    for i in range(max(num1,num2),min(num1,num2)-1, -1):
+        list.append(i)
+    print(list)
+    return list
+
+
+descending(2,4)
+descending(4,49)
+
 
