@@ -101,12 +101,14 @@ def calc():
     print("4. Division")
     print("5. Exponents")
     print("6. Number base conversion")
-    print("Enter a number 1-6 to begin calculation")
+    print("Enter a number 1-6 to begin calculation or 'exit' to stop")
 
     correctinput = 0
     while correctinput == 0:
         selection = input("Enter calculation option: ")
-        if int(selection) in range(1, 7):
+        if str.lower(selection) == "exit":
+            correctinput += 1
+        elif int(selection) in range(1, 7):
             correctinput += 1
             selection = int(selection)
         else:
@@ -141,7 +143,7 @@ def calc():
         exp1 = int(input("Base number: "))
         exp2 = int(input("Exponent: "))
         expo(exp1, exp2)
-    else:
+    elif selection == 6:
         print("")
         print("Base conversion selected")
         ibase = int(input("Input base: "))
@@ -151,21 +153,26 @@ def calc():
         obase = int(input("Output base: "))
         print(digitsfinal)
         rebase(ibase, digitsfinal, obase)
+    else:
+        print("")
+        print("Exiting...")
+    return selection
 
 
 # runs calc interface and checks if user want's another calc before exiting
-# looks a bit dodgy, seems to repeat itself, but it worked so i stopped
-anothercalc = "Y"
-while anothercalc == "Y":
-    print("")
-    calc()
-    print("")
-    anothercalc = str.lower(input("Another calc Y/N: "))
-    if anothercalc == "y" or anothercalc == "yes":
-        print("")
-        calc()
-        print("")
-        anothercalc = str(input("Another calc Y/N: "))
+
+exit = 0
+while exit == 0:
+    selectionvar = calc()
+    if str.lower(str(selectionvar)) == "exit":
+        exit = 1
     else:
-        print("Exiting...")
-        break
+        print("")
+        anothercalc = str.lower(input("Another calc Y/N: "))
+        if anothercalc == "y" or anothercalc == "yes":
+            print("")
+            selectionvar
+        else:
+            print ("")
+            print("Exiting...")
+            exit = 1
