@@ -106,13 +106,18 @@ def calc():
     correctinput = 0
     while correctinput == 0:
         selection = input("Enter calculation option: ")
-        if str.lower(selection) == "exit":
-            correctinput += 1
-        elif int(selection) in range(1, 7):
-            correctinput += 1
-            selection = int(selection)
+        if selection == "exit":
+            correctinput = 1
+        try:
+            if int(selection) in range(1,7):
+                correctinput = 1
+                selection = int(selection)
+        except ValueError:
+            print("Error: Input must be a number 1-6 or 'exit'")
+            print("")
         else:
-            continue
+            print("Error: Input must be a number 1-6 or 'exit'")
+            print("")
     if selection == 1:
         print("")
         print("Addition selected")
@@ -160,6 +165,7 @@ def calc():
 
 
 # runs calc interface and checks if user want's another calc before exiting
+# to do stuff: add error handling on each calculation inputs
 
 exit = 0
 while exit == 0:
