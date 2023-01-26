@@ -107,7 +107,7 @@ def calc():
     while correctinput == 0:
         selection = input("Enter calculation option: ")
         if selection == "exit":
-            correctinput = 1
+            break
         try:
             if int(selection) in range(1,7):
                 correctinput = 1
