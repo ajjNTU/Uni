@@ -1,9 +1,5 @@
 # calculator parts
 # addition multiplication subtraction division exponents and base conversion
-
-import math
-
-
 def multi(num1, num2):
     # multiplication with addition
     total = 0
@@ -68,7 +64,8 @@ def rebase(input_base, digits, output_base):
     if input_base < 2:
         raise ValueError("input base must be >= 2")
     elif sum(digits) == 0:
-        return [0]
+        return print("Input base entered:", input_base, "# Digits entered:", digits, "# Output base required:",
+                     output_base, "# Result:", [0])
     elif output_base < 2:
         raise ValueError("output base must be >= 2")
     while z < len(digits):
@@ -82,10 +79,15 @@ def rebase(input_base, digits, output_base):
             suminputbasedigits += digits[-i - 1] * input_base ** i
             i += 1
         # find what the greatest power of the output base
-        jtest = int(math.log(suminputbasedigits, output_base)) + 1
+        jtest = 0
+        count = 0
+        while jtest <= suminputbasedigits:
+            jtest = output_base ** count
+            count += 1
+        count = count - 1
         # loop these powers to get the int value from highest to lowest and removing that int to leave the remainder
         # of the sum left for next loop of lower power
-        for y in reversed(range(0, jtest)):
+        for y in reversed(range(0, count)):
             outbasedigits.append(int(suminputbasedigits / output_base ** y))
             suminputbasedigits -= int(suminputbasedigits / output_base ** y) * output_base ** y
         return print("Input base entered:", input_base, "# Digits entered:", digits, "# Output base required:",
@@ -102,61 +104,153 @@ def calc():
     print("5. Exponents")
     print("6. Number base conversion")
     print("Enter a number 1-6 to begin calculation or 'exit' to stop")
+    print("")
 
     correctinput = 0
     while correctinput == 0:
         selection = input("Enter calculation option: ")
         if selection == "exit":
-            break
-        try:
-            if int(selection) in range(1,7):
-                correctinput = 1
-                selection = int(selection)
-        except ValueError:
-            print("Error: Input must be a number 1-6 or 'exit'")
-            print("")
+            correctinput = 1
         else:
-            print("Error: Input must be a number 1-6 or 'exit'")
-            print("")
+            try:
+                if int(selection) in range(1, 7):
+                    correctinput = 1
+                    selection = int(selection)
+            except ValueError:
+                print("Error: Input must be a number 1-6 or 'exit'")
+                print("")
+            else:
+                print("Error: Input must be a number 1-6 or 'exit'")
+                print("")
     if selection == 1:
         print("")
         print("Addition selected")
-        add1 = int(input("First number to add: "))
-        add2 = int(input("Second number to add: "))
+        while True:
+            try:
+                add1 = int(input("First number to add: "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
+        while True:
+            try:
+                add2 = int(input("Second number to add: "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
         addition(add1, add2)
     elif selection == 2:
         print("")
         print("Subtratction selected")
-        sub1 = int(input("First number: "))
-        sub2 = int(input("Number to subtract: "))
+        while True:
+            try:
+                sub1 = int(input("First number: "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
+        while True:
+            try:
+                sub2 = int(input("Number to subtract: "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
         subtraction(sub1, sub2)
     elif selection == 3:
         print("")
         print("Multiplication selected")
-        multi1 = int(input("First number to multiply: "))
-        multi2 = int(input("Second number to multiply: "))
+        while True:
+            try:
+                multi1 = int(input("First number to multiply: "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
+        while True:
+            try:
+                multi2 = int(input("Second number to multiply: "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
         multi(multi1, multi2)
     elif selection == 4:
         print("")
         print("Division selected")
-        num = int(input("Enter numerator (top number): "))
-        den = int(input("Enter denominator (bottom number: "))
+        while True:
+            try:
+                num = int(input("Enter numerator (top number): "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
+        while True:
+            try:
+                den = int(input("Enter denominator (bottom number: "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
         div(num, den)
     elif selection == 5:
         print("")
         print("Exponents selected")
-        exp1 = int(input("Base number: "))
-        exp2 = int(input("Exponent: "))
+        while True:
+            try:
+                exp1 = int(input("Base number: "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
+        while True:
+            try:
+                exp2 = int(input("Exponent: "))
+            except ValueError:
+                print("Please use integers")
+            else:
+                break
         expo(exp1, exp2)
     elif selection == 6:
         print("")
         print("Base conversion selected")
-        ibase = int(input("Input base: "))
-        dgts = input("Digits seperated by a comma (eg. 1,0,0,1,0): ")
-        dgtssplit = dgts.split(",")
-        digitsfinal = [int(i) for i in dgtssplit]
-        obase = int(input("Output base: "))
-        print(digitsfinal)
+        while True:
+            try:
+                ibase = int(input("Input base: "))
+            except ValueError:
+                print("Please use integer >= 2")
+                continue
+            if ibase < 2:
+                print("Please use integer >= 2")
+            else:
+                break
+        correctdigits = 0
+        while correctdigits == 0:
+            dgts = input("Digits seperated by a comma (eg. 1,0,0,1,0): ")
+            try:
+                dgtssplit = dgts.split(",")
+                digitsfinal = [int(i) for i in dgtssplit]
+            except ValueError:
+                print("all digits must satisfy 0 <= d < input base")
+                continue
+            else:
+                if all([0 <= x < ibase for x in digitsfinal]):
+                    correctdigits = 1
+                else:
+                    print("all digits must satisfy 0 <= d < input base")
+                    continue
+        while True:
+            try:
+                obase = int(input("Output base: "))
+            except ValueError:
+                print("Please use integer >= 2")
+                continue
+            if obase < 2:
+                print("Please use integer >= 2")
+            else:
+                break
+        # print(digitsfinal)
         rebase(ibase, digitsfinal, obase)
     else:
         print("")
@@ -165,20 +259,23 @@ def calc():
 
 
 # runs calc interface and checks if user want's another calc before exiting
-# to do stuff: add error handling on each calculation inputs
+# to do stuff:
+#   allow floats into calcs?
+#   maybe define a function that checks input for type to call instead of all the above try excepts?
+#
 
-exit = 0
-while exit == 0:
+exitvar = 0
+while exitvar == 0:
     selectionvar = calc()
     if str.lower(str(selectionvar)) == "exit":
-        exit = 1
+        exitvar = 1
     else:
         print("")
         anothercalc = str.lower(input("Another calc Y/N: "))
         if anothercalc == "y" or anothercalc == "yes":
             print("")
-            selectionvar
+            continue
         else:
-            print ("")
+            print("")
             print("Exiting...")
-            exit = 1
+            exitvar = 1
