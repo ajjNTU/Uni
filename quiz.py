@@ -8,7 +8,13 @@
 # [hint] you can use a variable that keeps count of correct answers. The value stored in the variable will change after
 # question is answered to reflect the new count of correct answers, if any.
 
+
+import datetime as dt
+
+quizzer = input("What's your name?")
 correcttotal = 0
+now = dt.datetime.now()
+date_of_quiz = now.strftime("%d/%m/%Y %H:%M:%S")
 print("Question 1: What scale to americans use to measure temperature?")
 print("A: C")
 print("B: K")
@@ -70,4 +76,8 @@ while attempt < 2:
             attempt += 1
 print("")
 print("You got", correcttotal, "/3 correct")
+scores_text = open(r"C:\Users\aj104\PycharmProjects\quizScore.txt", "a", encoding="utf-8")
+scores_text.write(f"\nPlayer: {quizzer} scored {correcttotal} out of 3 on {date_of_quiz}")
+scores_text.close()
+
 
