@@ -11,6 +11,13 @@ def string_calc(arithmatic):
     # look for *
     # look for +
     # look for -
+    #
+    # working notes:
+    # doesn't work just yet, I think leading "-" is causing issues and sometimes it skips "+"
+    # the naming of stuff is horrible should probably give variable names to stuff like 2 chars up and down
+    # there's so many prints, so I could figure out what it's doing
+    # it for loops for each symbol, resolving them and replacing with result
+    # which at the end should leave the final result
     BIDMAS = ['*', '/', '+', '-']
     print(arithmatic)
     pos_neg = 1
