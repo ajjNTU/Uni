@@ -1,4 +1,4 @@
-1# 5. Least Common Multiple (LCM)
+# 5. Least Common Multiple (LCM)
 # The LCM of two divisors is the first number that both divisors can divide. For instance, the LCM of 4 and 6 is 12,
 # because 12 is the first number that both 4 and 6 can divide.
 #
