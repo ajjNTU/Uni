@@ -1,18 +1,22 @@
 def string_calc(arithmatic):
     #   add the string calculator '1+3+5-4*10/2' in?
     #       1+3+5-20 = -11
-    # BIDMAS
+    # BIDMAS:
     # LOOK for brackets
     #   grab brackets and do IDMAS
     #   replace brackets with IDMAS value
     #   move to next brack
     # no more brackets
-    # look for ** and replace ** with value
+    # IDMAS:
+    # look for **, maybe use ^ instead so replace ** to ^? just to deal with single character
     # look for *
+    # look for /
     # look for +
     # look for -
     #
     # working notes:
+    # doesn't like floats so any remainder just gets 0'd. could maybe add a running total of remainders but
+    #       division doesn't look at the sign of the first number
     # ignoring brackets and powers for now
     # brackets could use string calc to do calc inside bracket then string calc that? recursive like??
     #
@@ -23,24 +27,25 @@ def string_calc(arithmatic):
                 and arithmatic[arithmatic.index(char) + 2 + count_up] not in bidmas:
             count_up += 1
         min_char = min(arithmatic.index(char) + 2 + count_up, len(arithmatic))
-        up_string = arithmatic[arithmatic.index(char) + 1:min_char]
-        # print("up string:", up_string)
-        return up_string
+        counting_up_string = arithmatic[arithmatic.index(char) + 1:min_char]
+        # print("up string:", counting_up_string)
+        return counting_up_string
 
     def counting_down():
         count_down = 0
         if arithmatic.index(char) == 1:
-            down_string = arithmatic[0]
+            counting_down_string = arithmatic[0]
         else:
-            while arithmatic[arithmatic.index(char) - 2 - count_down] not in bidmas:
+            while arithmatic.index(char) - 1 - count_down > 0 \
+                    and arithmatic[arithmatic.index(char) - 2 - count_down] not in bidmas:
                 count_down += 1
-            down_string = arithmatic[arithmatic.index(char) - 1 - count_down:arithmatic.index(char)]
-        # print("down_string:" + down_string)
-        return down_string
+            counting_down_string = arithmatic[arithmatic.index(char) - 1 - count_down:arithmatic.index(char)]
+        # print("down_string:" + counting_down_string)
+        return counting_down_string
 
     bidmas = ['*', '/', '+', '-']
-    # arithmatic.replace(" ", "")
-    print(arithmatic)
+    arithmatic.replace(" ", "")
+    print(f"Computing: {arithmatic}")
     while arithmatic.__contains__("*"):
         for char in arithmatic:
             if char == "*":
@@ -76,7 +81,7 @@ def string_calc(arithmatic):
             if char == "+":
                 up_string = counting_up()
                 down_string = counting_down()
-                # look if down_string should be - and make it *-1 if so
+                # look if down_string should be -
                 if arithmatic[arithmatic.index(down_string) - 1] == "-":
                     down_string = "-" + down_string
                     new_string_add = int(down_string) + int(up_string)
@@ -109,16 +114,23 @@ def string_calc(arithmatic):
                 final -= int(item)
     else:
         final = arithmatic
-    print("final:", int(final))
+    print("Result:", int(final))
     return final
 
 
 string_calc("4+4")
 string_calc("-3*-3")
 string_calc("3*-3")
+string_calc("-3*3")
 string_calc("3/-1+5-4*10000*-10")
 string_calc("1+3+5-4*10/2")
 string_calc("1-3+5-4000*10000+2*2")
 string_calc("1-3+5-4000*10000+2*2*-2/-2")
-string_calc("1-3+5-4000*10000+2*2*-2/2")
-string_calc("1-3+5-4000*10000+2*2*2/-2")
+string_calc("1-3+5+4000*10000-2*2*-2/2")
+string_calc("1-3+5+4000*10000+2*2*2/-2")
+string_calc("1-3+5-4000*10000+2*2*2/-7")
+string_calc("1-3+5-4000*10000+6/-7")
+string_calc("1-3+5-4000*10000+3/-7")
+string_calc("1-3+5-4000*10000+3/-7+2/7")
+string_calc("1-3+5+4000*10000+3/-7+2/7-17/7")
+
