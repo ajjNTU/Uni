@@ -13,143 +13,110 @@ def string_calc(arithmatic):
     # look for -
     #
     # working notes:
-    # add1 and add2 don't make sense they need renaming cause add2 is the first number in addition, it's confusing
-    # ignoring brackets for now
-    # doesn't work just yet, I think leading "-" "+" is causing issues and sometimes it skips "+"
-    # the naming of stuff is horrible should probably give variable names to stuff like 2 chars up and down
-    # there's so many prints, so I could figure out what it's doing
-    # it for loops for each symbol, resolving them and replacing with result
-    # which at the end should leave the final result
+    # ignoring brackets and powers for now
+
+    def counting_up():
+        count_up = 0
+        while arithmatic.index(char) + 2 + count_up < len(arithmatic) and arithmatic[
+            arithmatic.index(char) + 2 + count_up] not in bidmas:
+            count_up += 1
+        minchar = min(arithmatic.index(char) + 2 + count_up, len(arithmatic))
+        up_string = arithmatic[arithmatic.index(char) + 1:minchar]
+        #print("up string:", up_string)
+        return up_string
+
+    def counting_down():
+        count_down = 0
+        if arithmatic.index(char) == 1:
+            down_string = arithmatic[0]
+        else:
+            while arithmatic[arithmatic.index(char) - 2 - count_down] not in bidmas:
+                count_down += 1
+            down_string = arithmatic[arithmatic.index(char) - 1 - count_down:arithmatic.index(char)]
+        #print("down_string:" + down_string)
+        return down_string
+
     bidmas = ['*', '/', '+', '-']
+    #arithmatic.replace(" ", "")
     print(arithmatic)
-    pos_neg = 1
-    for char in arithmatic:
-        if char == "*":
-            count_up = 0
-            while arithmatic.index(char)+2+count_up < len(arithmatic) and arithmatic[arithmatic.index(char) + 2 + count_up] not in bidmas:
-                count_up += 1
-            minchar = min(arithmatic.index(char)+2+count_up, len(arithmatic))
-            multi_up = arithmatic[arithmatic.index(char)+1:minchar]
-            print("multi1", multi_up)
-            count_down = 0
-            if arithmatic.index(char) == 1:
-                multi_down = arithmatic[0]
-                #print(multi2)
-            else:
-                while arithmatic[arithmatic.index(char)-2-count_down] not in bidmas:
-                    count_down += 1
-                multi_down = arithmatic[arithmatic.index(char) - 1 - count_down:arithmatic.index(char)]
-            print("multi2", multi_down)
-            replacement = arithmatic[arithmatic.index(multi_down):minchar]
-            print("replace", replacement)
-            arithmatic = arithmatic.replace(str(replacement), str(int(multi_up) * int(multi_down)))
-            print("with", str(int(multi_up) * int(multi_down)))
-            print(arithmatic)
-            arithmatic = arithmatic.replace("--", "+")
-            arithmatic = arithmatic.replace("+-", "-")
-            print("replace -- to + and +- to -", arithmatic)
-            if arithmatic[0] == "+":
-                arithmatic = arithmatic[1:]
-            print(arithmatic)
-    for char in arithmatic:
-        if char == "/":
-            count_up = 0
-            while arithmatic.index(char)+2+count_up < len(arithmatic) and arithmatic[arithmatic.index(char)+2+count_up] not in bidmas:
-                count_up += 1
-            minchar = min(arithmatic.index(char)+2+count_up, len(arithmatic))
-            div1 = arithmatic[arithmatic.index(char)+1:minchar]
-            print(div1)
-            count_down = 0
-            if arithmatic.index(char) == 1:
-                div2 = arithmatic[0]
-            else:
-                while arithmatic[arithmatic.index(char)-2-count_down] not in bidmas:
-                    count_down += 1
-                div2 = arithmatic[arithmatic.index(char)-1-count_down:arithmatic.index(char)]
-            print(div2)
-            replacement = arithmatic[arithmatic.index(char)-1-count_down:minchar]
-            print(replacement)
-            arithmatic = arithmatic.replace(str(replacement), str(int(int(div2) / int(div1))))
-            print(arithmatic)
-    for char in arithmatic:
-        #print("working on addition", char, "index", arithmatic.index(char))
-        if char == "+":
-            print("char is addition", char, "index is", arithmatic.index(char))
-            count_up = 0
-            while arithmatic.index(char)+2+count_up < len(arithmatic) and arithmatic[arithmatic.index(char)+2+count_up] not in bidmas:
-                count_up += 1
-            minchar = min(arithmatic.index(char)+2+count_up, len(arithmatic))
-            add1 = arithmatic[arithmatic.index(char)+1:minchar]
-            print(add1)
-            count_down = 0
-            if arithmatic.index(char) == 1:
-                add2 = arithmatic[0]
-            else:
-                while arithmatic.index(char)-2-count_down < 0 and arithmatic[arithmatic.index(char)-2-count_down] not in bidmas:
-                    count_down += 1
-                if arithmatic[arithmatic.index(char)-2-count_down] == "-":
-                    add2 = arithmatic[arithmatic.index(char) - 2 - count_down:arithmatic.index(char)]
-                else:
-                    add2 = arithmatic[arithmatic.index(char)-1-count_down:arithmatic.index(char)]
-            print(add2)
-            if add2[0] == "+":
-                replacement = arithmatic[arithmatic.index(char)-1:minchar]
-            print(arithmatic)
-            #print("replacement is", replacement)
-            #print("with", str(int(int(add2) + int(add1))))
-            # i think this is saying add a "+" to the addition if it's not at the start (we don't usually indicate the
-            # start of an arithmatic statement with "+"
-            if arithmatic.index(char) > 2:
-                replacement = arithmatic[arithmatic.index(add2):minchar]
-                arithmatic = arithmatic.replace(str(replacement), "+" + str(int(int(add2) + int(add1))))
-                print("replacement is", replacement)
-                print("with", "+" + str(int(int(add2) + int(add1))))
-            else:
-                replacement = arithmatic[arithmatic.index(add2):minchar]
-                arithmatic = arithmatic.replace(str(replacement), str(int(int(add2) + int(add1))))
-                print("else replace is", replacement)
-                print("with", str(int(int(add2) + int(add1))))
-            print(arithmatic)
-            # this just cleans up any that end up with "++" from the above?
-            arithmatic = arithmatic.replace("++","+")
-            print(arithmatic)
-            # string_calc("1-3+5-4000*10000+2*2") is causing me issues here because it doesn't find the final "+" and I
-            # don't know why
-    # check to see it's complete already with just "-" at the front
-    if not arithmatic[1:].isnumeric():
+    while arithmatic.__contains__("*"):
         for char in arithmatic:
-            if char == "-":
-                count_up = 0
-                while arithmatic.index(char)+2+count_up < len(arithmatic) and arithmatic[arithmatic.index(char)+2+count_up] not in bidmas:
-                    count_up += 1
-                minchar = min(arithmatic.index(char)+2+count_up, len(arithmatic))
-                sub1 = arithmatic[arithmatic.index(char)+1:minchar]
-                print(sub1)
-                count_down = 0
-                if arithmatic.index(char) == 1:
-                    sub2 = arithmatic[0]
+            if char == "*":
+                up_string = counting_up()
+                down_string = counting_down()
+                to_replace = f"{down_string}*{up_string}"
+                new_string_multi = int(int(down_string) * int(up_string))
+                arithmatic = arithmatic.replace(str(to_replace), str(new_string_multi))
+                #print(f"replace {to_replace} with {new_string_multi}")
+                # some checks remove leading "+" or double operator
+                arithmatic = arithmatic.replace("--", "+")
+                arithmatic = arithmatic.replace("+-", "-")
+                if arithmatic[0] == "+":
+                    arithmatic = arithmatic[1:]
+                #print(f"New arithmatic: {arithmatic}")
+    while arithmatic.__contains__("/"):
+        for char in arithmatic:
+            if char == "/":
+                up_string = counting_up()
+                down_string = counting_down()
+                to_replace = f"{down_string}/{up_string}"
+                new_string_div = int(int(down_string) / int(up_string))
+                arithmatic = arithmatic.replace(str(to_replace), str(new_string_div))
+                #print(f"replace {to_replace} with {new_string_div}")
+                # some checks remove leading "+" or double operator
+                arithmatic = arithmatic.replace("--", "+")
+                arithmatic = arithmatic.replace("+-", "-")
+                if arithmatic[0] == "+":
+                    arithmatic = arithmatic[1:]
+                #print(f"New arithmatic: {arithmatic}")
+    while arithmatic.__contains__("+"):
+        for char in arithmatic:
+            if char == "+":
+                up_string = counting_up()
+                down_string = counting_down()
+                # look if down_string should be - and make it *-1 if so
+                if arithmatic[arithmatic.index(down_string) - 1] == "-":
+                    down_string = "-" + down_string
+                    new_string_add = int(down_string) + int(up_string)
                 else:
-                    while arithmatic.index(char)-2-count_down < 0 and arithmatic[arithmatic.index(char)-2-count_down] not in bidmas:
-                        count_down += 1
-                    sub2 = arithmatic[arithmatic.index(char)-1-count_down:arithmatic.index(char)]
-                print(sub2)
-                replacement = arithmatic[arithmatic.index(char)-1-count_down:minchar]
-                print(replacement)
-                arithmatic = arithmatic.replace(str(replacement), str(int(int(sub2) - int(sub1))))
-                print(arithmatic)
+                    new_string_add = int(down_string) + int(up_string)
+                to_replace = f"{down_string}+{up_string}"
+                # if down string was negative, and we end up with a positive need to replace the - with +
+                if int(down_string) < 0 < int(new_string_add):
+                    arithmatic = arithmatic.replace(str(to_replace), "+" + str(new_string_add))
+                    #print(f"replace {to_replace} with +{new_string_add}")
+                else:
+                    arithmatic = arithmatic.replace(str(to_replace), str(new_string_add))
+                    #print(f"replace {to_replace} with {new_string_add}")
+                # some checks remove leading "+" or double operator
+                arithmatic = arithmatic.replace("--", "+")
+                arithmatic = arithmatic.replace("+-", "-")
+                if arithmatic[0] == "+":
+                    arithmatic = arithmatic[1:]
+                #print(f"New arithmatic: {arithmatic}")
+    final = 0
+    if not arithmatic[1:].isnumeric():
+        if arithmatic[0] == "-":
+            subs = arithmatic[1:].split("-")
+            for item in subs:
+                final -= item
+        else:
+            subs = arithmatic.split("-")
+            final += int(subs[0])
+            for item in subs[1:]:
+                final -= int(item)
     else:
-        print(arithmatic)
-    #print(arithmatic)
-    #print("pos_neg_end", pos_neg)
-    print("final:", int(arithmatic) * int(pos_neg))
+        final = arithmatic
+    print("final:", int(final))
+    return final
 
 
-
-
+string_calc("4+4")
 string_calc("-3*-3")
 string_calc("3*-3")
-
-# # (1*3)+5-(4*-10)
 string_calc("3/-1+5-4*10000*-10")
 string_calc("1+3+5-4*10/2")
 string_calc("1-3+5-4000*10000+2*2")
+string_calc("1-3+5-4000*10000+2*2*-2/-2")
+string_calc("1-3+5-4000*10000+2*2*-2/2")
+string_calc("1-3+5-4000*10000+2*2*2/-2")
