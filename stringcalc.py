@@ -63,19 +63,12 @@ def string_calc(arithmatic):
                     and arithmatic[max_power_index - 2 - count_down] not in bidmas:
                 count_down += 1
             down_string_exp = arithmatic[max_power_index - 1 - count_down:max_power_index]
-        if arithmatic[arithmatic.index(str(down_string_exp) + "^") - 1] == "-":
-            down_string_exp = "-" + down_string_exp
-            new_string_exp = int(down_string_exp) ** int(up_string_exp)
-        else:
-            new_string_exp = int(down_string_exp) ** int(up_string_exp)
+        new_string_exp = int(down_string_exp) ** int(up_string_exp)
+        print(f"new string exp: {new_string_exp}")
         to_replace = f"{down_string_exp}^{up_string_exp}"
         # if down string was negative, and we end up with a positive need to replace the - with +
-        if int(down_string_exp) < 0 < int(new_string_exp):
-            arithmatic = arithmatic.replace(str(to_replace), "+" + str(new_string_exp))
-            print(f"replace {to_replace} with +{new_string_exp}")
-        else:
-            arithmatic = arithmatic.replace(str(to_replace), str(new_string_exp))
-            print(f"replace {to_replace} with {new_string_exp}")
+        arithmatic = arithmatic.replace(str(to_replace), str(new_string_exp))
+        print(f"replace {to_replace} with {new_string_exp}")
         # some checks remove leading "+" or double operator
         arithmatic = arithmatic.replace("--", "+")
         arithmatic = arithmatic.replace("+-", "-")
@@ -170,4 +163,5 @@ def string_calc(arithmatic):
 # string_calc("1-3+5-4000*10000+3/-7+2/7")
 # string_calc("1-3+5+4000*10000+3/-7+2/7-17000/7**3")
 # string_calc("1-3+5+4000*10000+3/-7+2/7-17000/7^3")
-string_calc("1-3+5+4000*10000+3/-7+2/7-17000**15/-7**3**3")
+string_calc("1-3+5+4000*10000+3/-7+2/7-17000^6/-7^3^3")
+print(1-3+5+4000*10000+3/-7+2/7-17000**6/-7**3**3)
