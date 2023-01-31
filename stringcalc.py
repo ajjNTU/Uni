@@ -14,15 +14,17 @@ def string_calc(arithmatic):
     #
     # working notes:
     # ignoring brackets and powers for now
+    # brackets could use string calc to do calc inside bracket then string calc that? recursive like??
+    #
 
     def counting_up():
         count_up = 0
-        while arithmatic.index(char) + 2 + count_up < len(arithmatic) and arithmatic[
-            arithmatic.index(char) + 2 + count_up] not in bidmas:
+        while arithmatic.index(char) + 2 + count_up < len(arithmatic) \
+                and arithmatic[arithmatic.index(char) + 2 + count_up] not in bidmas:
             count_up += 1
-        minchar = min(arithmatic.index(char) + 2 + count_up, len(arithmatic))
-        up_string = arithmatic[arithmatic.index(char) + 1:minchar]
-        #print("up string:", up_string)
+        min_char = min(arithmatic.index(char) + 2 + count_up, len(arithmatic))
+        up_string = arithmatic[arithmatic.index(char) + 1:min_char]
+        # print("up string:", up_string)
         return up_string
 
     def counting_down():
@@ -33,11 +35,11 @@ def string_calc(arithmatic):
             while arithmatic[arithmatic.index(char) - 2 - count_down] not in bidmas:
                 count_down += 1
             down_string = arithmatic[arithmatic.index(char) - 1 - count_down:arithmatic.index(char)]
-        #print("down_string:" + down_string)
+        # print("down_string:" + down_string)
         return down_string
 
     bidmas = ['*', '/', '+', '-']
-    #arithmatic.replace(" ", "")
+    # arithmatic.replace(" ", "")
     print(arithmatic)
     while arithmatic.__contains__("*"):
         for char in arithmatic:
@@ -47,13 +49,13 @@ def string_calc(arithmatic):
                 to_replace = f"{down_string}*{up_string}"
                 new_string_multi = int(int(down_string) * int(up_string))
                 arithmatic = arithmatic.replace(str(to_replace), str(new_string_multi))
-                #print(f"replace {to_replace} with {new_string_multi}")
+                # print(f"replace {to_replace} with {new_string_multi}")
                 # some checks remove leading "+" or double operator
                 arithmatic = arithmatic.replace("--", "+")
                 arithmatic = arithmatic.replace("+-", "-")
                 if arithmatic[0] == "+":
                     arithmatic = arithmatic[1:]
-                #print(f"New arithmatic: {arithmatic}")
+                # print(f"New arithmatic: {arithmatic}")
     while arithmatic.__contains__("/"):
         for char in arithmatic:
             if char == "/":
@@ -62,13 +64,13 @@ def string_calc(arithmatic):
                 to_replace = f"{down_string}/{up_string}"
                 new_string_div = int(int(down_string) / int(up_string))
                 arithmatic = arithmatic.replace(str(to_replace), str(new_string_div))
-                #print(f"replace {to_replace} with {new_string_div}")
+                # print(f"replace {to_replace} with {new_string_div}")
                 # some checks remove leading "+" or double operator
                 arithmatic = arithmatic.replace("--", "+")
                 arithmatic = arithmatic.replace("+-", "-")
                 if arithmatic[0] == "+":
                     arithmatic = arithmatic[1:]
-                #print(f"New arithmatic: {arithmatic}")
+                # print(f"New arithmatic: {arithmatic}")
     while arithmatic.__contains__("+"):
         for char in arithmatic:
             if char == "+":
@@ -84,16 +86,16 @@ def string_calc(arithmatic):
                 # if down string was negative, and we end up with a positive need to replace the - with +
                 if int(down_string) < 0 < int(new_string_add):
                     arithmatic = arithmatic.replace(str(to_replace), "+" + str(new_string_add))
-                    #print(f"replace {to_replace} with +{new_string_add}")
+                    # print(f"replace {to_replace} with +{new_string_add}")
                 else:
                     arithmatic = arithmatic.replace(str(to_replace), str(new_string_add))
-                    #print(f"replace {to_replace} with {new_string_add}")
+                    # print(f"replace {to_replace} with {new_string_add}")
                 # some checks remove leading "+" or double operator
                 arithmatic = arithmatic.replace("--", "+")
                 arithmatic = arithmatic.replace("+-", "-")
                 if arithmatic[0] == "+":
                     arithmatic = arithmatic[1:]
-                #print(f"New arithmatic: {arithmatic}")
+                # print(f"New arithmatic: {arithmatic}")
     final = 0
     if not arithmatic[1:].isnumeric():
         if arithmatic[0] == "-":
