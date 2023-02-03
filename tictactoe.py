@@ -382,18 +382,7 @@ def computer_move(board, computer, human):
             # if they picked perfect game and chose opposite to start
             board[1] = "O"
             turn += 1
-        elif turn == 4:
-            if O_winner_check(board) is not None:
-                win_index = O_winner_check(board) - 1
-                board[win_index] = "O"
-                print(f"I picked {win_index}")
-                turn += 1
-            else:
-                block_index = winner_check(board) - 1
-                board[block_index] = "O"
-                print(f"I picked {block_index}")
-                turn += 1
-        elif turn > 4:
+        elif turn >= 4:
             if O_winner_check(board) is not None:
                 win_index = O_winner_check(board) - 1
                 board[win_index] = "O"
