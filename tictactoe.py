@@ -360,10 +360,14 @@ def computer_move(board, computer):
                 board[win_index] = "O"
                 print(f"I picked {win_index}")
                 turn += 1
-            else:
+            elif x_winner_check(board) is not None:
                 block_index = x_winner_check(board) - 1
                 board[block_index] = "O"
                 print(f"I picked {block_index}")
+                turn += 1
+            else:
+                board[2] = "O"
+                print("I picked 3")
                 turn += 1
 
 
