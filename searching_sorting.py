@@ -79,6 +79,7 @@ print(sort_strings(["Jon","DWAdawdawda","adaddadwa","Jon", "joe", "poe", "hello"
 
 
 def insert_sorted(sorted_list, insert_val):
+    pass
     #where to insert?
     # find index in sorted list where len[item] >= len(insert_val) <= len[item]
     # once that index number is known can do
