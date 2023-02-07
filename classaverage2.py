@@ -93,6 +93,6 @@ def class_avg_dict(grades: dict):
         print(grades['grade'])
         total += grades['grade']
 
-class_avg_dict({'key': 1, 2 'grade': 12, 14})
+#class_avg_dict({'key': 1, 2 'grade': 12, 14})
 
 
